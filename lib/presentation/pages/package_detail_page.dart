@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pub_dev_api_app/presentation/controllers/package_detail_controller.dart';
 import 'package:pub_dev_api_app/presentation/providers/package_detail_provider.dart';
 
 class PackageDetailPage extends ConsumerWidget {
@@ -79,6 +80,10 @@ Widget overviewSection(String overview, String publisherId) {
 }
 
 Widget versionsSection(List<String> versions) {
+  final PackageDetailController controller = PackageDetailController();
+
+  final sortedVersions = controller.sortVersions(versions);
+
   return Container(
     width: double.infinity,
     decoration: BoxDecoration(
@@ -90,7 +95,7 @@ Widget versionsSection(List<String> versions) {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          for (var version in versions)
+          for (var version in sortedVersions)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: Text(version, style: TextStyle(fontSize: 16.0)),
