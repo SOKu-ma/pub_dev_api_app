@@ -8,7 +8,8 @@ abstract class PackagesUseCase {
 class PackagesUseCaseImpl implements PackagesUseCase {
   final PackagesRepository _repository;
 
-  PackagesUseCaseImpl(this._repository);
+  PackagesUseCaseImpl({required PackagesRepository repository})
+    : _repository = repository;
 
   @override
   Future<List<PackagesEntity>> execute() {

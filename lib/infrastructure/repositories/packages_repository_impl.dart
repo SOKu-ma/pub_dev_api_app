@@ -5,7 +5,8 @@ import 'package:pub_dev_api_app/infrastructure/dto/packages_dto.dart';
 
 class PackagesRepositoryImpl implements PackagesRepository {
   final ApiClient _apiClient;
-  PackagesRepositoryImpl(this._apiClient);
+  PackagesRepositoryImpl({required ApiClient apiClient})
+    : _apiClient = apiClient;
 
   @override
   Future<List<PackagesEntity>> fetchPackagesList() async {

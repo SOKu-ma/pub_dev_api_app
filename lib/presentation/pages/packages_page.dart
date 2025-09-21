@@ -1,28 +1,36 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:pub_dev_api_app/presentation/providers/packages_provider.dart';
 
 class PackagesPage extends ConsumerWidget {
   const PackagesPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final packagesAsync = ref.watch(packagesEntityProvider);
+
     return Scaffold(
       appBar: AppBar(title: Text('Pub dev')),
-      body: Container(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView.builder(
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return PackageCard();
-          },
-        ),
+      body: packagesAsync.when(
+        data: (packages) {
+          return ListView.builder(
+            itemCount: packages.length,
+            itemBuilder: (context, index) {
+              final package = packages[index];
+              return PackageCard(package: package);
+            },
+          );
+        },
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error: $error')),
       ),
     );
   }
 }
 
 class PackageCard extends StatelessWidget {
-  const PackageCard({super.key});
+  final package;
+  const PackageCard({super.key, required this.package});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,7 @@ class PackageCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('package_name', style: Theme.of(context).textTheme.titleLarge),
+            Text(package.name, style: Theme.of(context).textTheme.titleLarge),
           ],
         ),
       ),
