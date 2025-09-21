@@ -6,21 +6,18 @@ part of 'packages_dto.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-PackageSearchResponseDto _$PackageSearchResponseDtoFromJson(
-  Map<String, dynamic> json,
-) => PackageSearchResponseDto(
+PackagesDto _$PackagesDtoFromJson(Map<String, dynamic> json) => PackagesDto(
   packages: (json['packages'] as List<dynamic>)
       .map((e) => PackageDto.fromJson(e as Map<String, dynamic>))
       .toList(),
   nextUrl: json['next_url'] as String?,
 );
 
-Map<String, dynamic> _$PackageSearchResponseDtoToJson(
-  PackageSearchResponseDto instance,
-) => <String, dynamic>{
-  'packages': instance.packages,
-  'next_url': instance.nextUrl,
-};
+Map<String, dynamic> _$PackagesDtoToJson(PackagesDto instance) =>
+    <String, dynamic>{
+      'packages': instance.packages,
+      'next_url': instance.nextUrl,
+    };
 
 PackageDto _$PackageDtoFromJson(Map<String, dynamic> json) => PackageDto(
   name: json['name'] as String,

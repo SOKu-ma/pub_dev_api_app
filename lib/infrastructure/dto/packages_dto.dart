@@ -3,17 +3,17 @@ import 'package:json_annotation/json_annotation.dart';
 part 'packages_dto.g.dart';
 
 @JsonSerializable()
-class PackageSearchResponseDto {
+class PackagesDto {
   final List<PackageDto> packages;
   @JsonKey(name: 'next_url')
   final String? nextUrl;
 
-  const PackageSearchResponseDto({required this.packages, this.nextUrl});
+  const PackagesDto({required this.packages, this.nextUrl});
 
-  factory PackageSearchResponseDto.fromJson(Map<String, dynamic> json) =>
-      _$PackageSearchResponseDtoFromJson(json);
+  factory PackagesDto.fromJson(Map<String, dynamic> json) =>
+      _$PackagesDtoFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PackageSearchResponseDtoToJson(this);
+  Map<String, dynamic> toJson() => _$PackagesDtoToJson(this);
 }
 
 @JsonSerializable()
