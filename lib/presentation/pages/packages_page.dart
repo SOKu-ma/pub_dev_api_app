@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:pub_dev_api_app/presentation/pages/package_detail_page.dart';
 import 'package:pub_dev_api_app/presentation/providers/packages_provider.dart';
 
 class PackagesPage extends ConsumerWidget {
@@ -34,14 +35,23 @@ class PackageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(package.name, style: Theme.of(context).textTheme.titleLarge),
-          ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => PackageDetailPage(packageName: package.name),
+          ),
+        );
+      },
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(package.name, style: Theme.of(context).textTheme.titleLarge),
+            ],
+          ),
         ),
       ),
     );
