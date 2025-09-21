@@ -16,11 +16,10 @@ class PackageDetailPublisherRepositoryImpl
       final data = await _apiClient.get(
         'https://pub.dev/api/packages/$packageName/publisher',
       );
-      return PackageDetailPublisherEntity(
-        publisherId: data['publisherId'] as String,
-      );
+      final publisherId = data['publisherId'] as String? ?? 'No publisher';
+      return PackageDetailPublisherEntity(publisherId: publisherId);
     } catch (e) {
-      throw Exception('Failed to fetch publisher ID: $e');
+      return PackageDetailPublisherEntity(publisherId: 'No publisher');
     }
   }
 }

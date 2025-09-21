@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pub_dev_api_app/presentation/controllers/package_detail_controller.dart';
-import 'package:pub_dev_api_app/presentation/providers/package_detail_provider.dart';
+import 'package:pub_dev_api_app/presentation/providers/package_full_detail_provider.dart';
 
 class PackageDetailPage extends ConsumerWidget {
   final String packageName;
@@ -9,14 +9,17 @@ class PackageDetailPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final packageDetail = ref.watch(packageDetailEntityProvider(packageName));
+    final packageFullDetail = ref.watch(
+      packageFullDetailEntityProvider(packageName),
+    );
+
     return Scaffold(
       appBar: AppBar(title: Text(packageName)),
-      body: packageDetail.when(
+      body: packageFullDetail.when(
         data: (data) =>
-            detailsContent(data.description, "publisherId", data.versions),
-        loading: () => CircularProgressIndicator(),
-        error: (error, stack) => Text('Error: $error'),
+            detailsContent(data.description, data.publisherId, data.versions),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (error, stack) => Center(child: Text('Error: $error')),
       ),
     );
   }
