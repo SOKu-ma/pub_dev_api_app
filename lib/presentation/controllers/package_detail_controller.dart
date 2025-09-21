@@ -28,9 +28,13 @@ class PackageDetailController {
   Future<void> openUrl(String url) async {
     if (url.isEmpty) return;
 
-    final uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
+    try {
+      final uri = Uri.parse(url);
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri, mode: LaunchMode.externalApplication);
+      }
+    } catch (e) {
+      debugPrint('URL起動エラー: $e');
     }
   }
 }
