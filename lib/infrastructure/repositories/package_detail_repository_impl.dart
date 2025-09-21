@@ -20,6 +20,11 @@ class PackageDetailRepositoryImpl implements PackageDetailRepository {
         description:
             dto.latest?.pubspec?.description ?? 'No description available',
         versions: dto.versions?.map((v) => v.version).toList() ?? [],
+        linkUrl: Uri.parse(
+          dto.latest?.pubspec?.homepage ??
+              dto.latest?.pubspec?.repository ??
+              'https://pub.dev/packages/$packageName',
+        ),
       );
     } catch (e) {
       throw Exception('Failed to fetch package details: $e');

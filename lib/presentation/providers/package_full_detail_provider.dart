@@ -23,5 +23,6 @@ Future<PackageFullDetailEntity> packageFullDetailEntity(
     description: packageDetail.description,
     versions: packageDetail.versions,
     publisherId: publisherDetail.publisherId,
+    linkUrl: packageDetail.linkUrl,
   );
 }

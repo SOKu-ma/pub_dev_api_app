@@ -12,9 +12,17 @@ class PackageDetailPage extends ConsumerWidget {
     final packageFullDetail = ref.watch(
       packageFullDetailEntityProvider(packageName),
     );
+    final PackageDetailController controller = PackageDetailController();
 
     return Scaffold(
-      appBar: AppBar(title: Text(packageName)),
+      appBar: AppBar(
+        title: Text(packageName),
+        actions: packageFullDetail.when(
+          data: (details) => controller.buildAppBarActions(details.linkUrl),
+          loading: () => [],
+          error: (_, __) => [],
+        ),
+      ),
       body: packageFullDetail.when(
         data: (data) =>
             detailsContent(data.description, data.publisherId, data.versions),
